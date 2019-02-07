@@ -47,8 +47,9 @@ function format_cost ($cost) {
         $final_cost = $int_num;
     }
     else {
-        $final_cost = number_format($int_num, 0, '.', ' ') . ' ' . '₽';
+        $final_cost = number_format($int_num, 0, '.', ' ');
     }
+    $final_cost = $final_cost . ' ' . '₽';
     return $final_cost;
 }
 ?>
@@ -132,7 +133,7 @@ function format_cost ($cost) {
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><? print(format_cost($item['price'])); ?><!--<b class="rub">р</b>--></span>
+                            <span class="lot__cost"><?=format_cost($item['price']); ?><!--<b class="rub">р</b>--></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
