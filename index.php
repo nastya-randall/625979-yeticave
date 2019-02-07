@@ -5,41 +5,53 @@ $categories = ["Доски и лыжи", "Крепления", "Ботинки",
 $item_list = [
     [
         'title' => '2014 Rossignol District Snowboard',
-        'category' => 'Доски и лыжи',
+        'category' => 0,
         'price' => 10999,
         'url' => 'img/lot-1.jpg'
     ],
     [
         'title' => 'DC Ply Mens 2016/2017 Snowboard',
-        'category' => 'Доски и лыжи',
+        'category' => 0,
         'price' => 159999,
         'url' => 'img/lot-2.jpg'
     ],
     [
         'title' => 'Крепления Union Contact Pro 2015 года размер L/XL',
-        'category' => 'Крепления',
+        'category' => 1,
         'price' => 8000,
         'url' => 'img/lot-3.jpg'
     ],
     [
         'title' => 'Ботинки для сноуборда DC Mutiny Charocal',
-        'category' => 'Ботинки',
+        'category' => 2,
         'price' => 10999,
         'url' => 'img/lot-4.jpg'
     ],
     [
         'title' => 'Куртка для сноуборда DC Mutiny Charocal',
-        'category' => 'Одежда',
+        'category' => 3,
         'price' => 7500,
         'url' => 'img/lot-5.jpg'
     ],
     [
         'title' => 'Маска Oakley Canopy',
-        'category' => 'Разное',
+        'category' => 5,
         'price' => 5400,
         'url' => 'img/lot-6.jpg'
     ]
 ];
+
+function format_cost ($cost) {
+    $int_num = ceil($cost);
+    if ($int_num < 1000) {
+        $final_cost = $int_num;
+    }
+    else {
+        $final_cost = number_format($int_num, 0, '.', ' ');
+    }
+    $final_cost = $final_cost . ' ' . '₽';
+    return $final_cost;
+}
 ?>
 
 <!DOCTYPE html>
@@ -116,12 +128,12 @@ $item_list = [
                     <img src="<?=$item['url']; ?>" width="350" height="260" alt="">
                 </div>
                 <div class="lot__info">
-                    <span class="lot__category"><?=$item['category']; ?></span>
+                    <span class="lot__category"><?=$categories[$item['category']]; ?></span>
                     <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=$item['title']; ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=$item['price']; ?><b class="rub">р</b></span>
+                            <span class="lot__cost"><?=format_cost($item['price']); ?><!--<b class="rub">р</b>--></span>
                         </div>
                         <div class="lot__timer timer">
                             12:23
