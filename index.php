@@ -4,7 +4,7 @@ require_once('data.php');
 
 $content = include_template('main.php', [
     'categories' => $categories,
-    'items' => $item_list
+    'item_list' => $item_list
 ]);
 
 $layout = include_template('layout.php', [
@@ -18,4 +18,3 @@ $layout = include_template('layout.php', [
 print($layout);
 
 ?>
-
