@@ -34,7 +34,7 @@
                         </span>
                     </div>
                     <div class="lot__timer timer">
-                        <?=$hours?>:<?=$minutes?>
+                        <?=calc_time()?>
                     </div>
                 </div>
             </div>

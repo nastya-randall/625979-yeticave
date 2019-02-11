@@ -16,11 +16,17 @@ function include_template($name, $data) {
     return $result;
 };
 
-date_default_timezone_set("Europe/Moscow");
-$ts_midnight = strtotime('tomorrow');
-$secs_to_midnight = $ts_midnight - time();
-$hours = floor($secs_to_midnight / 3600);
-$minutes = floor(($secs_to_midnight % 3600) / 60);
+function calc_time () {
+    date_default_timezone_set("Europe/Moscow");
+    $ts_midnight = strtotime('tomorrow');
+    $secs_to_midnight = $ts_midnight - time();
+    $hours = floor($secs_to_midnight / 3600);
+    $minutes = floor(($secs_to_midnight % 3600) / 60);
+    $time_to_midnight = $hours . ':' . $minutes;
+    return $time_to_midnight;
+}
+
+
 
 function format_cost ($cost) {
     $int_num = ceil($cost);
