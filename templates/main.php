@@ -34,7 +34,7 @@
                         </span>
                     </div>
                     <div class="lot__timer timer">
-                        12:23
+                        <?=$hours?>:<?=$minutes?>
                     </div>
                 </div>
             </div>
