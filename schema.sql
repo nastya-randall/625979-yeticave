@@ -1,7 +1,7 @@
-CREATE DATABASE yeticave;
-DEFAULT CHARACTER SET utf8;
+CREATE DATABASE randall_625979_yeticave
+DEFAULT CHARACTER SET utf8
 DEFAULT COLLATE utf8_general_ci;
-USE yeticave;
+USE randall_625979_yeticave;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +31,7 @@ CREATE TABLE lots (
     start_price INT NOT NULL,
     bid_incr INT NOT NULL,
     dt_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    dt_end TIMESTAMP,
+    dt_end TIMESTAMP
 );
 
 CREATE TABLE bids (
@@ -42,7 +42,6 @@ CREATE TABLE bids (
     dt_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-JOIN categories c ON lots.category_id = c.id;
-JOIN users u ON lots.user_id = u.id;
-JOIN u ON bids.user_id = u.id;
-JOIN lots l ON bids.lot_id = l.id;
+CREATE UNIQUE INDEX u_email ON users(email);
+CREATE INDEX l_name ON lots(name);
+CREATE INDEX l_description ON lots(description);
