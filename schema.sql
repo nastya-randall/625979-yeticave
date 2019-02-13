@@ -41,6 +41,8 @@ CREATE TABLE bids (
 );
 
 CREATE UNIQUE INDEX u_email ON users(email);
+CREATE INDEX l_name ON lots(name);
+CREATE INDEX l_dt_end ON lots(dt_end);
 CREATE INDEX l_cat_id ON lots(category_id);
 CREATE INDEX l_user_id ON lots(user_id);
 CREATE INDEX b_user_id ON bids(user_id);
