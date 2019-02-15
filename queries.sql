@@ -4,8 +4,8 @@ INSERT INTO categories (name) VALUES ('Доски и лыжи'), ('Крепле�
 
 /* Добавляет пользователей */
 
-INSERT INTO users SET email = "anastassiya.sviridova@gmail.com", name = "Настя", dt_add = NOW(), password = "12345";
-INSERT INTO users SET email = "ivan.example@gmail.com", name = "Иван", dt_add = NOW(), password = "54321";
+INSERT INTO users SET email = "anastassiya.sviridova@gmail.com", name = "Настя", dt_add = NOW(), password = "12345", contact = "г. Мюнхен";
+INSERT INTO users SET email = "ivan.example@gmail.com", name = "Иван", dt_add = NOW(), password = "54321", contact = "г. Санкт-Петербург";
 
 /* Добавляет лоты */
 
@@ -31,10 +31,10 @@ SELECT * FROM categories ORDER BY id ASC;
 
 /* получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории */
 
-SELECT (l.name, start_price, image_path, COALESCE(MAX(bid),start_price) AS price, c.name)
+SELECT l.name, start_price, image_path, MAX(bid), c.name
   FROM lots l
   JOIN categories c ON l.category_id = c.id
-  JOIN bids b ON l.id = b.lot_id
+  JOIN bids b ON b.lot_id = l.id
   WHERE dt_end > NOW()
   ORDER BY l.dt_add DESC;
 
