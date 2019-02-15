@@ -31,7 +31,7 @@ SELECT * FROM categories ORDER BY id ASC;
 
 /* получить самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории */
 
-SELECT l.name, start_price, image_path, MAX(bid), c.name
+SELECT l.name, start_price, image_path, COALESCE(MAX(bid), start_price) AS price, c.name
   FROM lots l
   JOIN categories c ON l.category_id = c.id
   JOIN bids b ON b.lot_id = l.id
