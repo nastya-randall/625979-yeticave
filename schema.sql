@@ -27,7 +27,7 @@ CREATE TABLE lots (
     description TEXT,
     image_path CHAR(255) NOT NULL,
     start_price INT NOT NULL,
-    bid_incr INT NOT NULL,
+    bid_incr INT DEFAULT 100,
     dt_add TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     dt_end TIMESTAMP
 );
