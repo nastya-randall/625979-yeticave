@@ -2,11 +2,9 @@
 require_once('functions.php');
 require_once('data.php');
 
-
-
 $content = include_template('main.php', [
     'categories' => $categories,
-    'item_list' => $item_list
+    'lots' => $lots
 ]);
 
 $layout = include_template('layout.php', [
@@ -16,7 +14,5 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
-
 print($layout);
-
 ?>
