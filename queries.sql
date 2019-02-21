@@ -13,6 +13,12 @@ VALUES
 
 INSERT INTO users SET email = "anastassiya.sviridova@gmail.com", name = "Настя", dt_add = NOW(), password = "12345", contact = "г. Мюнхен";
 INSERT INTO users SET email = "ivan.example@gmail.com", name = "Иван", dt_add = NOW(), password = "54321", contact = "г. Санкт-Петербург";
+INSERT INTO users (email, name, dt_add, password, contact)
+    VALUES
+        ("evgeniy@example.com", "Евгений", NOW(), "67890", "г. Москва"),
+        ("boris@example.com", "Борис", NOW(), "09876", "г. Киев"),
+        ("mikhail@example.com", "Михаил", NOW(), "85264", "г. Севастополь"),
+        ("anna@example.com", "Анна", NOW(), "753158", "г. Лондон");
 
 /* Добавляет лоты */
 
@@ -30,7 +36,15 @@ INSERT INTO lots (user_id, category_id, name, start_price, image_path, dt_add, d
 INSERT INTO bids (user_id, lot_id, bid, dt_add)
   VALUES
     (1, 2, 160099, '2019-02-08 19:19:25'),
-    (2, 2, 160599, '2019-02-09 07:10:25');
+    (3, 2, 160599, '2019-02-09 07:10:25'),
+    (4, 2, 170099, '2019-02-10 19:19:25'),
+    (1, 2, 170500, '2019-02-10 23:19:25'),
+    (4, 2, 171000, '2019-02-11 01:19:25'),
+    (1, 6, 6800, '2019-02-08 19:19:25'),
+    (3, 6, 7000, '2019-02-09 07:10:25'),
+    (4, 6, 7500, '2019-02-10 19:19:25'),
+    (1, 6, 8100, '2019-02-10 23:19:25'),
+    (4, 6, 8200, '2019-02-11 01:19:25');
 
 /* получить все категории */
 
