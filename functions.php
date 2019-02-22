@@ -27,7 +27,6 @@ function calc_time () {
 }
 
 
-
 function format_cost ($cost) {
     $int_num = ceil($cost);
     if ($int_num < 1000) {
@@ -38,5 +37,10 @@ function format_cost ($cost) {
     }
     $final_cost = $final_cost . ' ' . '₽';
     return $final_cost;
+};
+
+function get_min_bid ($cur_price, $bid_incr) {
+    $min_bid = $cur_price + $bid_incr;
+    return $min_bid;
 };
 ?>

@@ -15,7 +15,8 @@ CREATE TABLE users (
 
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name CHAR(255)
+    name CHAR(255),
+    image_path CHAR(255)
 );
 
 CREATE TABLE lots (

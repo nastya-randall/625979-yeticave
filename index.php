@@ -1,35 +1,17 @@
 <?php
 require_once('functions.php');
-
+require_once('data.php');
 $title = 'Главная';
-$user_name = 'Настя Свиридова';
-$is_auth = rand(0, 1);
-
-// добавляет категории
-
-$categories = [];
-$con = mysqli_connect("localhost", "root", "", "randall_625979_yeticave");
-if(!$con) {
-    die ('Ошибка подключения');
-}
-mysqli_set_charset($con, "utf8");
-
-$sql_get_cats = 'SELECT * FROM categories;';
-$cat_result = mysqli_query($con, $sql_get_cats);
-
-if ($cat_result) {
-    $categories = mysqli_fetch_all($cat_result, MYSQLI_ASSOC);
-}
 
 // добавляет лоты
 
 $lots = [];
-$sql_get_lots = 'SELECT l.name, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name
+$sql_get_lots = 'SELECT l.id, l.name, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name
   FROM lots l
-  JOIN categories c ON l.category_id = c.id
-  JOIN bids b ON b.lot_id = l.id
+  LEFT JOIN categories c ON l.category_id = c.id
+  LEFT JOIN bids b ON b.lot_id = l.id
   WHERE l.dt_end > NOW()
-  GROUP BY b.lot_id
+  GROUP BY l.id
   ORDER BY l.dt_add DESC;';
 
 $lots_result = mysqli_query($con, $sql_get_lots);
@@ -50,5 +32,6 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
+
 print($layout);
 ?>
