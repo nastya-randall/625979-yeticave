@@ -17,5 +17,4 @@ $cat_result = mysqli_query($con, $sql_get_cats);
 if ($cat_result) {
     $categories = mysqli_fetch_all($cat_result, MYSQLI_ASSOC);
 }
-
 ?>

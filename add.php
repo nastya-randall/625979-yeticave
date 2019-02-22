@@ -40,7 +40,7 @@ else {
       $lot['category'],
       $lot['lot-name'],
       $lot['message'],
-      $lot['image'],
+      '/img/' . $file_name,
       $lot['lot-rate'],
       $lot['lot-date'],
       $lot['lot-step']

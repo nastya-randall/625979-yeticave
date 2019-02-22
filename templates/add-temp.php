@@ -20,7 +20,7 @@
       <select id="category" name="category" required>
         <option>Выберите категорию</option>
       <?php foreach ($categories as $index): ?>
-        <option><?=$index['name']; ?></option>
+        <option value="<?=$index['id'] ?>"><?=$index['name']; ?></option>
       <?php endforeach; ?>
       </select>
       <span class="form__error">Выберите категорию</span>
