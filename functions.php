@@ -77,6 +77,7 @@ function db_get_prepare_stmt($link, $sql, $data = []) {
 
       $func = 'mysqli_stmt_bind_param';
       $func(...$values);
+//    $func($stmt, $types, ...$stmt_data);
   }
 
   return $stmt;

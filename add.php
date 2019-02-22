@@ -19,7 +19,7 @@ else {
 
     if(isset($_FILES['image'])) {
       $file_name = $_FILES['image']['name'];
-      $file_path = _DIR_ . '/img/';
+      $file_path = __DIR__ . '/img/';
       move_uploaded_file($_FILES['image']['tmp_name'], $file_path . $file_name);
     }
 
