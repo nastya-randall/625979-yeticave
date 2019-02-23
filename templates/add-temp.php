@@ -7,15 +7,15 @@
   <?php endforeach; ?>
   </ul>
 </nav>
-<form class="form form--add-lot container form--invalid" action="add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+<form class="form form--add-lot container<?=empty($errors) ? '' : ' form--invalid'; ?>" action="add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
   <h2>Добавление лота</h2>
   <div class="form__container-two">
-    <div class="form__item form__item--invalid"> <!-- form__item--invalid -->
+    <div class="form__item <?php if(isset($errors['lot-name'])):?>form__item--invalid<?php endif; ?>"> <!-- form__item--invalid -->
       <label for="lot-name">Наименование</label>
       <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
       <span class="form__error">Введите наименование лота</span>
     </div>
-    <div class="form__item form__item--invalid">
+    <div class="form__item"> <!-- form__item--invalid -->
       <label for="category">Категория</label>
       <select id="category" name="category" required>
         <option>Выберите категорию</option>
