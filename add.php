@@ -28,8 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $file_type = finfo_file($finfo, $tmp_name);
-    if ($file_type !== 'image/jpeg' || 'image/pjpeg' || 'image/png') {
-      $errors['file'] = 'Загрузите изображение  в формате JPEG или PNG';
+    if ($file_type !== "image/jpeg" && $file_type !== "image/pjpeg" && $file_type !== "image/png" && $file_type !== "image/webp") {
+      $errors['file'] = 'Загрузите изображение в формате JPEG или PNG';
+    }
+    if (!empty($_FILES['image']['error'])) {
+      $errors['file'] = 'Произошла ошибка загрузки файла. Повторите попытку или загрузите другой файл';
     }
   }
   else {
@@ -68,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $lot['category'],
       $lot['lot-name'],
       $lot['message'],
-      $image_path,
+      'img/' . $image_path,
       $lot['lot-rate'],
       $lot['lot-date'],
       $lot['lot-step']
