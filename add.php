@@ -3,32 +3,32 @@ require_once('functions.php');
 require_once('data.php');
 $title = 'Добавление лота';
 
-$content = include_template('add-temp.php', [
-    'categories' => $categories
-  ]);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $keys = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
+  $required = ['lot-name', 'category', 'message', 'lot-rate', 'lot-step', 'lot-date'];
   $lot = $_POST;
-
   $errors = [];
-  foreach ($lot as $key => $value) {
+
+  foreach ($required as $key) {
     if (empty($lot[$key])) {
       $errors[$key] = 'Это поле надо заполнить';
     }
 
-    if($key === 'category' && $value === 'Выберите категорию') {
-          $errors[$key] = 'Выберите категорию';
+    if($key === 'category') {
+      $lot[$key] = (int)$lot[$key];
+      if ($lot[$key] < 1) {
+        $errors[$key] = 'Выберите категорию';
       }
+    }
   }
 
-  if(isset($_FILES['image'])) {
-    $file_name = $_FILES['image']['name'];
-    $file_path = __DIR__ . '/img/';
+  if(isset($_FILES['image']['name']) && $_FILES['imgage']['name']) {
+    $tmp_name = $_FILES['image']['tmp_name'];
+    $image_path = $_FILES['image']['name'];
 
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $file_type = finfo_file($finfo, $file_name);
-    if ($file_type !== "image/jpeg" || "image/png") {
+    $file_type = finfo_file($finfo, $tmp_name);
+    if ($file_type !== 'image/jpeg' || 'image/pjpeg' || 'image/png') {
       $errors['file'] = 'Загрузите изображение  в формате JPEG или PNG';
     }
   }
@@ -37,13 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   if (count($errors)) {
-    $page_content = include_template('add-temp.php', [
+    $content = include_template('add-temp.php', [
+      'categories' => $categories,
       'lot' => $lot,
       'errors' => $errors
     ]);
   }
+
+      // при отсутствии ошибок перемещаем картинку
+ 
   else {
-    move_uploaded_file($_FILES['image']['tmp_name'], $file_path . $file_name);
+    move_uploaded_file($tmp_name, 'img/' . $image_path);
+
+    // записываем данные из формы в БД
 
     $sql_add_lot = 'INSERT INTO lots (
       dt_add,
@@ -62,35 +68,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $lot['category'],
       $lot['lot-name'],
       $lot['message'],
-      '/img/' . $file_name,
+      $image_path,
       $lot['lot-rate'],
       $lot['lot-date'],
       $lot['lot-step']
     ]);
     $res = mysqli_stmt_execute($stmt);
 
+    // если запись данных прошла успешно, то мы переадресовываем пользователя
+
     if ($res) {
       $lot_id = mysqli_insert_id($con);
-
       header('Location: lot.php?id=' . $lot_id);
     }
+
+    // в противном случае выводится страница ошибки
+
     else {
     $content = include_template('error.php', [
     'error' => mysqli_error($con)
     ]);
     }
+
+    $content = include_template('add-temp.php', [
+      'categories' => $categories,
+      'lot' => $lot
+    ]);
   }
 }
+
 else {
-  $layout = include_template('layout.php', [
+  $content = include_template('add-temp.php', [
+    'categories' => $categories
+  ]);
+
+}
+
+$layout = include_template('layout.php', [
     'content' => $content,
     'categories' => $categories,
     'title' => $title,
     'user_name' => $user_name,
     'is_auth' => $is_auth
   ]);
-
-  print($layout);
-}
+var_dump($errors);
+print($layout);
 
 ?>
