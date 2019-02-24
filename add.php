@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 
-  if(isset($_FILES['image']['name']) && $_FILES['imgage']['name']) {
+  if(isset($_FILES['image']['name']) && $_FILES['image']['name']) {
     $tmp_name = $_FILES['image']['tmp_name'];
     $image_path = $_FILES['image']['name'];
 
