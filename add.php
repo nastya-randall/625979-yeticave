@@ -29,14 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $file_type = finfo_file($finfo, $tmp_name);
     if ($file_type !== "image/jpeg" && $file_type !== "image/pjpeg" && $file_type !== "image/png" && $file_type !== "image/webp") {
-      $errors['file'] = 'Загрузите изображение в формате JPEG или PNG';
+      $errors['image'] = 'Загрузите изображение в формате JPEG или PNG';
     }
     if (!empty($_FILES['image']['error'])) {
-      $errors['file'] = 'Произошла ошибка загрузки файла. Повторите попытку или загрузите другой файл';
+      $errors['image'] = 'Произошла ошибка загрузки файла. Повторите попытку или загрузите другой файл';
     }
   }
   else {
-    $errors['file'] = 'Загрузите изображение';
+    $errors['image'] = 'Загрузите изображение';
   }
 
   if (count($errors)) {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
       // при отсутствии ошибок перемещаем картинку
- 
+
   else {
     move_uploaded_file($tmp_name, 'img/' . $image_path);
 
@@ -114,7 +114,7 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
   ]);
-var_dump($errors);
+
 print($layout);
 
 ?>
