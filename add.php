@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   foreach ($required as $key) {
     if (empty($lot[$key])) {
       $errors[$key] = 'Это поле надо заполнить';
+      continue;
     }
 
     if($key === 'category') {
@@ -24,19 +25,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if(isset($_FILES['image']['name']) && $_FILES['image']['name']) {
     $tmp_name = $_FILES['image']['tmp_name'];
-    $image_path = $_FILES['image']['name'];
+      $image_path = $_FILES['image']['name'];
 
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $file_type = finfo_file($finfo, $tmp_name);
-    if ($file_type !== "image/jpeg" && $file_type !== "image/pjpeg" && $file_type !== "image/png" && $file_type !== "image/webp") {
-      $errors['image'] = 'Загрузите изображение в формате JPEG или PNG';
-    }
     if (!empty($_FILES['image']['error'])) {
       $errors['image'] = 'Произошла ошибка загрузки файла. Повторите попытку или загрузите другой файл';
+    }
+    else {
+      $finfo = finfo_open(FILEINFO_MIME_TYPE);
+      $file_type = finfo_file($finfo, $tmp_name);
+
+      if ($file_type !== "image/jpeg" && $file_type !== "image/pjpeg" && $file_type !== "image/png" && $file_type !== "image/webp") {
+        $errors['image'] = 'Загрузите изображение в формате JPEG или PNG';
+      }
     }
   }
   else {
     $errors['image'] = 'Загрузите изображение';
+  }
+
+  if (!empty($lot['lot-date'])) {
+    $lot_date = $lot['lot-date'];
+    $timestamp = strtotime($lot_date);
+    $dt_diff = $timestamp - time();
+    if ($dt_diff < (60*60*24)) {
+      $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты хотя бы на один день';
+    }
+  }
+  
+  if (!empty($lot['lot-rate'])) {
+    $lot_rate = $lot['lot-rate'];
+    if (!filter_var($lot_rate, FILTER_VALIDATE_INT)) {
+      $errors['lot-rate'] = 'Указанное значение должно быть целым числом';
+    } else {
+        if ($lot_rate < 0) {
+          $errors['lot-rate'] = 'Указанное значение должно быть больше 0';
+      }
+    }
+  }
+
+    if (!empty($lot['lot-step'])) {
+    $lot_step = $lot['lot-step'];
+    if (!filter_var($lot_step, FILTER_VALIDATE_INT)) {
+      $errors['lot-step'] = 'Указанное значение должно быть целым числом';
+    }
+    if ($lot_step < 0) {
+      $errors['lot-step'] = 'Указанное значение должно быть больше 0';
+    }
   }
 
   if (count($errors)) {
@@ -71,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $lot['category'],
       $lot['lot-name'],
       $lot['message'],
-      'img/' . $image_path,
+      '/img/' . $image_path,
       $lot['lot-rate'],
       $lot['lot-date'],
       $lot['lot-step']
