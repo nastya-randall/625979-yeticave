@@ -49,9 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dt_diff = $timestamp - time();
     if ($dt_diff < (60*60*24)) {
       $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты хотя бы на один день';
+    } else {
+      if (check_date_format($lot_date) == false) {
+        $errors['lot-date'] = 'Укажите дату в формате ДД.ММ.ГГГГ';
+      }
     }
   }
-  
+
+
   if (!empty($lot['lot-rate'])) {
     $lot_rate = $lot['lot-rate'];
     if (!filter_var($lot_rate, FILTER_VALIDATE_INT)) {

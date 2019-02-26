@@ -15,20 +15,24 @@
       <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= isset($lot['lot-name']) ? $lot['lot-name'] : ""; ?>">
       <span class="form__error">Введите наименование лота</span>
     </div>
+
+    <?php $value = isset($lot['category']) ? $lot['category'] : ""; ?>
+
     <div class="form__item <?php if(isset($errors['category'])): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
       <label for="category">Категория</label>
       <select id="category" name="category">
         <option>Выберите категорию</option>
       <?php foreach ($categories as $index): ?>
-        <option value="<?=$index['id'] ?>"><?=$index['name']; ?></option>
+        <option <?= $value == $index['id'] ? "selected": ""; ?> value="<?=$index['id']; ?>"><?= $index['name']; ?></option>
       <?php endforeach; ?>
       </select>
       <span class="form__error">Выберите категорию</span>
     </div>
   </div>
+
   <div class="form__item form__item--wide <?php if(isset($errors['message'])): ?>form__item--invalid<?php endif;?>">
     <label for="message">Описание</label>
-    <textarea id="message" name="message" placeholder="Напишите описание лота" value="<?= isset($lot['message']) ? $lot['message'] : ""; ?>"></textarea>
+    <textarea id="message" name="message" placeholder="Напишите описание лота"><?= isset($lot['message']) ? $lot['message'] : ""; ?></textarea>
     <span class="form__error">Напишите описание лота</span>
   </div>
   <div class="form__item form__item--file <?php if(isset($errors['image'])): ?>form__item--invalid<?php endif;?>"> <!-- form__item--uploaded -->
