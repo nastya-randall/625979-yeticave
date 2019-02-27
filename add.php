@@ -46,12 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (!empty($lot['lot-date'])) {
     $lot_date = $lot['lot-date'];
     $timestamp = strtotime($lot_date);
-    $dt_diff = $timestamp - time();
-    if ($dt_diff < (60*60*24)) {
-      $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты хотя бы на один день';
+
+    if (check_date_format($lot_date) == false) {
+      $errors['lot-date'] = 'Укажите дату в формате ДД.ММ.ГГГГ';
     } else {
-      if (check_date_format($lot_date) == false) {
-        $errors['lot-date'] = 'Укажите дату в формате ДД.ММ.ГГГГ';
+      if ($timestamp < strtotime('tomorrow')) {
+        $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты хотя бы на один день';
       }
     }
   }
@@ -153,7 +153,7 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
   ]);
-
+print($lot['lot-date']);
 print($layout);
 
 ?>
