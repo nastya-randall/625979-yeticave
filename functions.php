@@ -91,7 +91,7 @@ function check_date_format($date) {
     $result = false;
     $regexp = '/(\d{4})\-(\d{2})\-(\d{2})/m';
     if (preg_match($regexp, $date, $parts) && count($parts) == 4) {
-        $result = checkdate($parts[2], $parts[1], $parts[3]);
+        $result = checkdate($parts[2], $parts[3], $parts[1]);
     }
     return $result;
 }

@@ -56,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
   }
 
-
   if (!empty($lot['lot-rate'])) {
     $lot_rate = $lot['lot-rate'];
     if (!filter_var($lot_rate, FILTER_VALIDATE_INT)) {
@@ -153,7 +152,7 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
   ]);
-print($lot['lot-date']);
+
 print($layout);
 
 ?>
