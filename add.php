@@ -45,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (!empty($lot['lot-date'])) {
     $lot_date = $lot['lot-date'];
-    $timestamp = strtotime($lot_date);
 
     if (check_date_format($lot_date) == false) {
       $errors['lot-date'] = 'Укажите дату в формате ДД.ММ.ГГГГ';
     } else {
+      $timestamp = strtotime($lot_date);
       if ($timestamp < strtotime('tomorrow')) {
         $errors['lot-date'] = 'Указанная дата должна быть больше текущей даты хотя бы на один день';
       }
