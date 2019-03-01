@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // при отсутствии ошибок перемещаем картинку
 
   else {
-    move_uploaded_file($tmp_name, 'img/' . $image_path);
+    move_uploaded_file($tmp_name, 'img/lots' . $image_path);
 
     // записываем данные из формы в БД
 
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $lot['category'],
       $lot['lot-name'],
       $lot['message'],
-      '/img/' . $image_path,
+      '/img/lots/' . $image_path,
       $lot['lot-rate'],
       $lot['lot-date'],
       $lot['lot-step']

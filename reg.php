@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (empty($errors)) {
     if (!empty($_FILES['image']['name'])) {
-      move_uploaded_file($tmp_name, 'img/' . $image_path);
+      move_uploaded_file($tmp_name, 'img/avatars' . $image_path);
     }
     $email = mysqli_real_escape_string($con, $form['email']);
     $sql = "SELECT id FROM users WHERE email = '$email'";
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $form['name'],
         $password,
         $form['message'],
-        '/img/' . $image_path
+        '/img/avatars/' . $image_path
       ]);
 
       $res = mysqli_stmt_execute($stmt);
