@@ -3,7 +3,7 @@ session_start();
 $is_auth = isset($_SESSION['user']);
 $user_name = ($is_auth) ? $_SESSION['user']['name'] : '';
 
-$userId = ($is_auth) ? $_SESSION['user']['id'] : '';
+$user_id = ($is_auth) ? $_SESSION['user']['id'] : '';
 
 
 // добавляет категории

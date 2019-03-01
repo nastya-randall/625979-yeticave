@@ -44,10 +44,13 @@ if (isset($_GET['id'])) {
 
 if (!$is_content) {
     $title = '404 Страница не найдена';
-    $content = include_template('404.php', [
+    $message = 'Данной страницы не существует на сайте.';
+    $content = include_template('error.php', [
             'categories' => $categories,
             'user_name' => $user_name,
-            'is_auth' => $is_auth
+            'is_auth' => $is_auth,
+            'message' => $message,
+            'title' => $title
     ]);
 }
 

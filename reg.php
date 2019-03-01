@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors['email'] = 'Введите корректный E-mail';
   }
 
-  if(isset($_FILES['image']['name']) && $_FILES['image']['name']) {
+  if(empty($errors) && isset($_FILES['image']['name']) && $_FILES['image']['name']) {
     $tmp_name = $_FILES['image']['tmp_name'];
-      $image_path = $_FILES['image']['name'];
+    $image_path = $_FILES['image']['name'];
 
     if (!empty($_FILES['image']['error'])) {
       $errors['image'] = 'Произошла ошибка загрузки файла. Повторите попытку или загрузите другой файл';
@@ -81,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
 }
-
 
 $content = include_template('reg-temp.php', [
   'errors' => $errors,
