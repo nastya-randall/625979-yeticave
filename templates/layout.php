@@ -29,9 +29,9 @@
 
         <!-- PHP код для показа имени пользователя -->
 
-            <?php if ($is_auth == 1): ?>
+            <?php if (isset($_SESSION['user'])): ?>
             <div class="user-menu__logged">
-                <p><?=$user_name;?></p>
+                <p><?=$_SESSION['user']['name'];?></p>
             </div>
             <?php else: ?>
             <ul class="user-menu__list">
@@ -39,7 +39,7 @@
                     <a href="reg.php">Регистрация</a>
                 </li>
                 <li class="user-menu__item">
-                    <a href="#">Вход</a>
+                    <a href="login.php">Вход</a>
                 </li>
             </ul>
             <?php endif; ?>

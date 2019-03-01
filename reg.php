@@ -39,12 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   if (empty($errors)) {
+    if (!empty($_FILES['image']['name'])) {
+      move_uploaded_file($tmp_name, 'img/' . $image_path);
+    }
     $email = mysqli_real_escape_string($con, $form['email']);
     $sql = "SELECT id FROM users WHERE email = '$email'";
     $res = mysqli_query($con, $sql);
 
     if (mysqli_num_rows($res) > 0) {
-      $errors[] = 'Пользователь с этим email уже зарегистрирован';
+      $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
     }
     else {
       $password = password_hash($form['password'], PASSWORD_DEFAULT);
