@@ -89,7 +89,7 @@ if ($is_auth) {
         // при отсутствии ошибок перемещаем картинку
 
     else {
-      move_uploaded_file($tmp_name, 'img/lots' . $image_path);
+      move_uploaded_file($tmp_name, 'img/lots/' . $image_path);
 
       // записываем данные из формы в БД
 

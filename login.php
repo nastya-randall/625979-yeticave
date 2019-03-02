@@ -46,10 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 }
 
-
+var_dump($errors);
 
 $content = include_template('login-temp.php', [
-  'categories' => $categories
+  'categories' => $categories,
+  'errors' => $errors,
+  'form' => $form
 ]);
 
 $layout = include_template('layout.php', [
