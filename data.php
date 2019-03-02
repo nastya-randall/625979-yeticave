@@ -1,6 +1,10 @@
 <?php
-$user_name = 'Настя Свиридова';
-$is_auth = rand(0, 1);
+session_start();
+$is_auth = isset($_SESSION['user']);
+$user_name = ($is_auth) ? $_SESSION['user']['name'] : '';
+
+$user_id = ($is_auth) ? $_SESSION['user']['id'] : '';
+
 
 // добавляет категории
 

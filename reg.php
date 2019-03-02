@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors['email'] = 'Введите корректный E-mail';
   }
 
-  if(isset($_FILES['image']['name']) && $_FILES['image']['name']) {
+  if(empty($errors) && isset($_FILES['image']['name']) && $_FILES['image']['name']) {
     $tmp_name = $_FILES['image']['tmp_name'];
-      $image_path = $_FILES['image']['name'];
+    $image_path = $_FILES['image']['name'];
 
     if (!empty($_FILES['image']['error'])) {
       $errors['image'] = 'Произошла ошибка загрузки файла. Повторите попытку или загрузите другой файл';
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (empty($errors)) {
     if (!empty($_FILES['image']['name'])) {
-      move_uploaded_file($tmp_name, 'img/' . $image_path);
+      move_uploaded_file($tmp_name, 'img/avatars/' . $image_path);
     }
     $email = mysqli_real_escape_string($con, $form['email']);
     $sql = "SELECT id FROM users WHERE email = '$email'";
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $form['name'],
         $password,
         $form['message'],
-        '/img/' . $image_path
+        '/img/avatars/' . $image_path
       ]);
 
       $res = mysqli_stmt_execute($stmt);
@@ -81,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
 }
-
 
 $content = include_template('reg-temp.php', [
   'errors' => $errors,
