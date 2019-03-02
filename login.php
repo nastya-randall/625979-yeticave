@@ -46,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 }
 
-var_dump($errors);
 
 $content = include_template('login-temp.php', [
   'categories' => $categories,
