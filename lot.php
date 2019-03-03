@@ -64,9 +64,7 @@ if (isset($_GET['id'])) {
 
       $res = mysqli_stmt_execute($stmt);
       if ($res) {
-        $bids_result = mysqli_query($con, $sql_get_bids);
-        $bids = mysqli_fetch_all($bids_result, MYSQLI_ASSOC);
-        $min_bid = get_min_bid($lot['price'], $lot['bid_incr']);
+        header("Location: lot.php?id=" . $lot['id']);
       }
 
       } else {
@@ -90,17 +88,17 @@ if (isset($_GET['id'])) {
   }
 }
 
-//if (!$is_content) {
-//    $title = '404 Страница не найдена';
-//    $message = 'Данной страницы не существует на сайте.';
-//    $content = include_template('error.php', [
-//            'categories' => $categories,
-//            'user_name' => $user_name,
-//            'is_auth' => $is_auth,
-//            'message' => $message,
-//            'title' => $title
-//    ]);
-//}
+if (!$is_content) {
+    $title = '404 Страница не найдена';
+    $message = 'Данной страницы не существует на сайте.';
+    $content = include_template('error.php', [
+            'categories' => $categories,
+            'user_name' => $user_name,
+            'is_auth' => $is_auth,
+            'message' => $message,
+            'title' => $title
+    ]);
+}
 
 $layout = include_template('layout.php', [
     'content' => $content,
@@ -110,7 +108,5 @@ $layout = include_template('layout.php', [
     'is_auth' => $is_auth
 ]);
 
-var_dump($lot);
-var_dump($errors);
 print($layout);
 ?>
