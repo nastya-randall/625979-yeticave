@@ -7,7 +7,7 @@ $is_content = false;
 if (isset($_GET['id'])) {
   $lot_id = intval($_GET['id']);
 
-  $sql_one_lot = "SELECT l.id, l.name, l.description, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name, l.bid_incr
+  $sql_one_lot = "SELECT l.id, l.name, l.description, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name, l.bid_incr, l.user_id
   FROM lots l 
   LEFT JOIN categories c ON l.category_id = c.id
   LEFT JOIN bids b ON b.lot_id = l.id
@@ -40,37 +40,67 @@ if (isset($_GET['id'])) {
     if (empty($form['cost'])) {
       $errors['cost'] = "Введите вашу ставку";
     }
-  }
 
-   if ($form['cost'] < $min_bid) {
-     $errors['cost'] = "Ваша ставка не может быть меньше " . $min_bid . "₽";
-   }
-
-
-        $content = include_template('lot-temp.php', [
-            'categories' => $categories,
-            'user_name' => $user_name,
-            'is_auth' => $is_auth,
-            'lot' => $lot,
-            'bids' => $bids,
-            'min_bid' => $min_bid
-        ]);
-        $title = $lot['name'];
-        $is_content = true;
+    if ($form['cost'] < $min_bid && $form['cost'] > 0) {
+      $errors['cost'] = "Введите сумму не меньше " . $min_bid . "₽";
     }
+
+    if (empty($errors)) {
+      if ($user_id !== $lot['user_id']) {
+        $sql_add_bid = 'INSERT INTO bids (
+        user_id,
+        lot_id,
+        bid,
+        dt_add
+        )
+        VALUES (?, ?, ?, NOW())';
+
+
+      $stmt = db_get_prepare_stmt($con, $sql_add_bid, [
+        $user_id,
+        $lot_id,
+        $form['cost']
+      ]);
+
+      $res = mysqli_stmt_execute($stmt);
+      if ($res) {
+        $bids_result = mysqli_query($con, $sql_get_bids);
+        $bids = mysqli_fetch_all($bids_result, MYSQLI_ASSOC);
+        $min_bid = get_min_bid($lot['price'], $lot['bid_incr']);
+      }
+
+      } else {
+        $errors['cost'] = "Автор лота не может добавлять к нему ставки";
+      }
+    }
+    }
+
+    $content = include_template('lot-temp.php', [
+      'categories' => $categories,
+      'user_name' => $user_name,
+      'is_auth' => $is_auth,
+      'lot' => $lot,
+      'bids' => $bids,
+      'min_bid' => $min_bid,
+      'errors' => $errors
+    ]);
+    $title = $lot['name'];
+    $is_content = true;
+
+  }
 }
 
-if (!$is_content) {
-    $title = '404 Страница не найдена';
-    $message = 'Данной страницы не существует на сайте.';
-    $content = include_template('error.php', [
-            'categories' => $categories,
-            'user_name' => $user_name,
-            'is_auth' => $is_auth,
-            'message' => $message,
-            'title' => $title
-    ]);
-}
+//if (!$is_content) {
+//    $title = '404 Страница не найдена';
+//    $message = 'Данной страницы не существует на сайте.';
+//    $content = include_template('error.php', [
+//            'categories' => $categories,
+//            'user_name' => $user_name,
+//            'is_auth' => $is_auth,
+//            'message' => $message,
+//            'title' => $title
+//    ]);
+//}
 
 $layout = include_template('layout.php', [
     'content' => $content,
@@ -80,5 +110,7 @@ $layout = include_template('layout.php', [
     'is_auth' => $is_auth
 ]);
 
+var_dump($lot);
+var_dump($errors);
 print($layout);
 ?>

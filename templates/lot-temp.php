@@ -34,8 +34,8 @@
             Мин. ставка <span><?=$min_bid;?></span>
           </div>
         </div>
-        <form class="lot-item__form" action="lot.php" method="post">
-          <p class="lot-item__form-item form__item <?php if(!empty($errors)): ?>form--invalid<?php endif;?>">
+        <form class="lot-item__form" action="lot.php?id=<?=$lot['id'];?>" method="post">
+          <p class="lot-item__form-item form__item <?php if(!empty($errors)): ?>form__item--invalid<?php endif;?>">
             <label for="cost">Ваша ставка</label>
             <input id="cost" type="text" name="cost" placeholder="<?=$min_bid;?>">
             <span class="form__error"><?= $errors['cost']; ?></span>
