@@ -20,10 +20,23 @@
 
     <div class="lot-item__right">
 
-      <?php if ($is_auth): ?>
+      <?php if (!$is_auth && $user_id == $lot['user_id'] && $user_id == $bids['bid_author']): ?>
       <div class="lot-item__state">
         <div class="lot-item__timer timer">
-          <?=calc_time()?>
+          <?=calc_time($lot['dt_end'])?>
+        </div>
+        <div class="lot-item__cost-state">
+          <div class="lot-item__rate">
+            <span class="lot-item__amount">Текущая цена</span>
+            <span class="lot-item__cost"><?=$lot['price'];?> ₽</span>
+          </div>
+        </div>
+      </div>
+
+      <?php else: ?>
+      <div class="lot-item__state">
+        <div class="lot-item__timer timer">
+          <?=calc_time($lot['dt_end'])?>
         </div>
         <div class="lot-item__cost-state">
           <div class="lot-item__rate">
@@ -37,7 +50,7 @@
         <form class="lot-item__form" action="lot.php?id=<?=$lot['id'];?>" method="post">
           <p class="lot-item__form-item form__item <?php if(!empty($errors)): ?>form__item--invalid<?php endif;?>">
             <label for="cost">Ваша ставка</label>
-            <input id="cost" type="text" name="cost" placeholder="<?=$min_bid;?>">
+            <input id="cost" type="text" name="cost" placeholder="<?=$min_bid;?>" value="<?= isset($form['cost']) ? $form['cost'] : ""; ?>">
             <span class="form__error"><?= $errors['cost']; ?></span>
           </p>
           <button type="submit" class="button">Сделать ставку</button>

@@ -7,7 +7,7 @@ $is_content = false;
 if (isset($_GET['id'])) {
   $lot_id = intval($_GET['id']);
 
-  $sql_one_lot = "SELECT l.id, l.name, l.description, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name, l.bid_incr, l.user_id
+  $sql_one_lot = "SELECT l.id, l.name, l.description, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name, l.bid_incr, l.user_id, l.dt_end
   FROM lots l 
   LEFT JOIN categories c ON l.category_id = c.id
   LEFT JOIN bids b ON b.lot_id = l.id
@@ -80,7 +80,8 @@ if (isset($_GET['id'])) {
       'lot' => $lot,
       'bids' => $bids,
       'min_bid' => $min_bid,
-      'errors' => $errors
+      'errors' => $errors,
+      'form' => $form
     ]);
     $title = $lot['name'];
     $is_content = true;
@@ -107,6 +108,6 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
-
+var_dump($lot['dt_end']);
 print($layout);
 ?>
