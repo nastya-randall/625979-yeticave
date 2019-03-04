@@ -20,20 +20,7 @@
 
     <div class="lot-item__right">
 
-      <?php if (!$is_auth : ?>
-      <div class="lot-item__state">
-        <div class="lot-item__timer timer">
-          <?=calc_time($lot['dt_end'])?>
-        </div>
-        <div class="lot-item__cost-state">
-          <div class="lot-item__rate">
-            <span class="lot-item__amount">Текущая цена</span>
-            <span class="lot-item__cost"><?=$lot['price'];?> ₽</span>
-          </div>
-        </div>
-      </div>
-
-      <?php else: ?>
+      <?php if ($is_auth): ?>
       <div class="lot-item__state">
         <div class="lot-item__timer timer">
           <?=calc_time($lot['dt_end'])?>
