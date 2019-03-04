@@ -34,7 +34,7 @@
                         </span>
                     </div>
                     <div class="lot__timer timer">
-                        <?=calc_time()?>
+                        <?=calc_time($lot['dt_end'])?>
                     </div>
                 </div>
             </div>

@@ -20,7 +20,7 @@
 
     <div class="lot-item__right">
 
-      <?php if (!$is_auth && $user_id == $lot['user_id'] && $user_id == $bids['bid_author']): ?>
+      <?php if (!$is_auth : ?>
       <div class="lot-item__state">
         <div class="lot-item__timer timer">
           <?=calc_time($lot['dt_end'])?>

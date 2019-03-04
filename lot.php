@@ -108,6 +108,6 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
-var_dump($lot['dt_end']);
+
 print($layout);
 ?>
