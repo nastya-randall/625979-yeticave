@@ -45,14 +45,10 @@ if (isset($_GET['id'])) {
     $check = mysqli_fetch_all($check_res, MYSQLI_ASSOC);
 
     //проверяем, скрыта ли форма ставок
-//    $is_hidden = true;
-//    if (!$is_auth) {
-//      $is_visible = true;
-//    } else {
       $is_rated = ($check[0]['cnt'] > 0) ? true : false;
       $is_author = ($user_id === $lot['user_id']) ? true : false;
       $is_visible = !$is_rated && !$is_author && !is_auth;
-//    }
+
 
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
