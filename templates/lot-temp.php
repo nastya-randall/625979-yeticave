@@ -20,7 +20,6 @@
 
     <div class="lot-item__right">
 
-      <?php if ($is_auth): ?>
       <div class="lot-item__state">
         <div class="lot-item__timer timer">
           <?=calc_time($lot['dt_end'])?>
@@ -34,6 +33,7 @@
             Мин. ставка <span><?=$min_bid;?></span>
           </div>
         </div>
+        <?php if (!$is_hidden): ?>
         <form class="lot-item__form" action="lot.php?id=<?=$lot['id'];?>" method="post">
           <p class="lot-item__form-item form__item <?php if(!empty($errors)): ?>form__item--invalid<?php endif;?>">
             <label for="cost">Ваша ставка</label>
@@ -42,8 +42,9 @@
           </p>
           <button type="submit" class="button">Сделать ставку</button>
         </form>
+        <?php endif; ?>
       </div>
-      <?php endif; ?>
+      
       <div class="history">
         <h3>История ставок (<span><?=count($bids);?></span>)</h3>
         <table class="history__list">

@@ -25,8 +25,12 @@ function calc_time ($dt_end) {
     $days = floor($secs_to_end / (60*60*24));
     $hours = floor($secs_to_end % (60*60*24) / 3600);
     $minutes = floor(($secs_to_end % 3600) / 60);
-    
-    $time_to_end = $days . "дн. " . $hours . ':' . $minutes;
+    if ($days == 0) {
+      $time_to_end = $hours . ':' . $minutes;
+    } else {
+      $time_to_end = $days . "дн. " . $hours . ':' . $minutes;
+    }
+
     return $time_to_end;
 }
 

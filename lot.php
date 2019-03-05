@@ -30,6 +30,30 @@ if (isset($_GET['id'])) {
     ORDER BY b.dt_add DESC;";
     $bids_result = mysqli_query($con, $sql_get_bids);
     $bids = mysqli_fetch_all($bids_result, MYSQLI_ASSOC);
+    
+    //проверяем, доступен ли еще лот для торгов
+
+    $dt_end = strtotime($lot['dt_end']);
+    $is_end = ($dt_end <= time()) ? true : false;
+
+    //проверяем, добавлял ли уже юзер ставки к данному лоту
+
+    $sql_check_user = "SELECT count(*) as cnt
+      FROM bids
+      WHERE lot_id = '$lot_id' AND user_id = '$user_id';";
+    $check_res = mysqli_query($con, $sql_check_user);
+    $check = mysqli_fetch_all($check_res, MYSQLI_ASSOC);
+
+    //проверяем, скрыта ли форма ставок
+    $is_hidden = true;
+    if (!$is_auth) {
+      $is_hidden = true;
+    } else {
+      $is_rated = ($check[0]['cnt'] > 0) ? true : false;
+      $is_author = ($user_id === $lot['user_id']) ? true : false;
+      $is_hidden = $is_rated || $is_author;
+    }
+
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $form = $_POST;
@@ -108,6 +132,6 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
-
+var_dump($is_hidden);
 print($layout);
 ?>
