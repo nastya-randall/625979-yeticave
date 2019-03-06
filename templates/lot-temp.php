@@ -19,7 +19,7 @@
     </div>
 
     <div class="lot-item__right">
-
+      <?php if (!$is_end): ?>
       <div class="lot-item__state">
         <div class="lot-item__timer timer">
           <?=calc_time($lot['dt_end'])?>
@@ -44,7 +44,7 @@
         </form>
         <?php endif; ?>
       </div>
-      
+      <?php endif; ?>
       <div class="history">
         <h3>История ставок (<span><?=count($bids);?></span>)</h3>
         <table class="history__list">

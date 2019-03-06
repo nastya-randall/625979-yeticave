@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
     //проверяем, скрыта ли форма ставок
       $is_rated = ($check[0]['cnt'] > 0) ? true : false;
       $is_author = ($user_id === $lot['user_id']) ? true : false;
-      $is_visible = !$is_rated && !$is_author && !is_auth;
+      $is_visible = !$is_rated && !$is_author && is_auth;
 
 
 
@@ -129,6 +129,6 @@ $layout = include_template('layout.php', [
     'user_name' => $user_name,
     'is_auth' => $is_auth
 ]);
-var_dump($is_visible);
+
 print($layout);
 ?>
