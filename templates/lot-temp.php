@@ -34,6 +34,7 @@
           </div>
         </div>
         <?php if ($is_visible): ?>
+        <?php if ($is_auth): ?>
         <form class="lot-item__form" action="lot.php?id=<?=$lot['id'];?>" method="post">
           <p class="lot-item__form-item form__item <?php if(!empty($errors)): ?>form__item--invalid<?php endif;?>">
             <label for="cost">Ваша ставка</label>
@@ -42,6 +43,7 @@
           </p>
           <button type="submit" class="button">Сделать ставку</button>
         </form>
+        <?php endif; ?>
         <?php endif; ?>
       </div>
       <?php endif; ?>
