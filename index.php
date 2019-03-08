@@ -6,7 +6,7 @@ $title = 'Главная';
 // добавляет лоты
 
 $lots = [];
-$sql_get_lots = 'SELECT l.id, l.name, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name
+$sql_get_lots = 'SELECT l.id, l.name, l.start_price, l.image_path, COALESCE(MAX(b.bid), l.start_price) AS price, c.name AS cat_name, l.dt_end
   FROM lots l
   LEFT JOIN categories c ON l.category_id = c.id
   LEFT JOIN bids b ON b.lot_id = l.id

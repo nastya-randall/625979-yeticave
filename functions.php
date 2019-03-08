@@ -16,14 +16,22 @@ function include_template($name, $data) {
     return $result;
 };
 
-function calc_time () {
+function calc_time ($dt_end) {
     date_default_timezone_set("Europe/Moscow");
-    $ts_midnight = strtotime('tomorrow');
-    $secs_to_midnight = $ts_midnight - time();
-    $hours = floor($secs_to_midnight / 3600);
-    $minutes = floor(($secs_to_midnight % 3600) / 60);
-    $time_to_midnight = $hours . ':' . $minutes;
-    return $time_to_midnight;
+    $secs_to_end = strtotime($dt_end) - time();
+    if ($secs_to_end <= 0) {
+      return '00:00';
+      }
+    $days = floor($secs_to_end / (60*60*24));
+    $hours = floor($secs_to_end % (60*60*24) / 3600);
+    $minutes = floor(($secs_to_end % 3600) / 60);
+    if ($days == 0) {
+      $time_to_end = $hours . ':' . $minutes;
+    } else {
+      $time_to_end = $days . "дн. " . $hours . ':' . $minutes;
+    }
+
+    return $time_to_end;
 }
 
 

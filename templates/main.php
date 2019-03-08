@@ -7,7 +7,7 @@
 
         <?php foreach ($categories as $index): ?>
         <li class="promo__item promo__item--boards">
-            <a class="promo__link" href="pages/all-lots.html" style="background-image:url(../<?=$index['image_path'];?>); background-position: right top;"><?=$index['name']; ?></a>
+            <a class="promo__link" href="all-lots.php?id=<?=$index['id'];?>" style="background-image:url(../<?=$index['image_path'];?>); background-position: right top;"><?=$index['name']; ?></a>
         </li>
         <?php endforeach; ?>
         <!--end-->
@@ -34,7 +34,7 @@
                         </span>
                     </div>
                     <div class="lot__timer timer">
-                        <?=calc_time()?>
+                        <?=calc_time($lot['dt_end'])?>
                     </div>
                 </div>
             </div>
