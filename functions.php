@@ -24,7 +24,11 @@ function calc_time ($dt_end) {
       }
     $hours = floor($secs_to_end / 3600);
     $minutes = floor(($secs_to_end % 3600) / 60);
-      $time_to_end = $hours . ':' . $minutes;
+    if ($minutes < 10) {
+      $time_to_end = $hours . ':' . 0 . $minutes;
+    } else {
+       $time_to_end = $hours . ':' . $minutes;
+    }
 
     return $time_to_end;
 }
