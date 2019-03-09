@@ -30,7 +30,7 @@ if (isset($_GET['id'])) {
     ORDER BY b.dt_add DESC;";
     $bids_result = mysqli_query($con, $sql_get_bids);
     $bids = mysqli_fetch_all($bids_result, MYSQLI_ASSOC);
-    
+
     //проверяем, доступен ли еще лот для торгов
 
     $dt_end = strtotime($lot['dt_end']);
@@ -49,8 +49,6 @@ if (isset($_GET['id'])) {
       $is_author = ($user_id === $lot['user_id']) ? true : false;
       $is_visible = !$is_rated && !$is_author;
 
-var_dump($is_visible);
-    
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $form = $_POST;

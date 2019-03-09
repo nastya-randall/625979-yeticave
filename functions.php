@@ -28,7 +28,7 @@ function calc_time ($dt_end) {
     if ($days == 0) {
       $time_to_end = $hours . ':' . $minutes;
     } else {
-      $time_to_end = $days . "дн. " . $hours . ':' . $minutes;
+      $time_to_end = $days . " дн. " . $hours . ':' . $minutes;
     }
 
     return $time_to_end;
