@@ -60,12 +60,12 @@ if (isset($_GET['id'])) {
       $errors['cost'] = "Введите вашу ставку";
     }
 
-    if ($form['cost'] < $min_bid) {
+    if ($form['cost'] < $min_bid && $form['cost'] > 0) {
       $errors['cost'] = "Введите сумму не меньше " . $min_bid . "₽";
     }
-    if ($form['cost'] > 0) {
-      $errors['cost'] = "Введите сумму не меньше " . $min_bid . "₽";
-    }
+    if ($form['cost'] <= 0) {
+        $errors['cost'] = "Введите сумму не меньше " . $min_bid . "₽";
+      }
 
     if (empty($errors)) {
       if ($user_id !== $lot['user_id']) {
