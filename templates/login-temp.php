@@ -16,7 +16,7 @@
   </div>
   <div class="form__item form__item--last <?php if(isset($errors['password'])): ?>form__item--invalid<?php endif;?>">
     <label for="password">Пароль*</label>
-    <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?= isset($form['password']) ? $form['password'] : ""; ?>" required>
+    <input id="password" type="password" name="password" placeholder="Введите пароль" value="<?= isset($form['password']) ? $form['password'] : ""; ?>" required>
     <span class="form__error"><?= $errors['password']; ?></span>
   </div>
   <button type="submit" class="button">Войти</button>
