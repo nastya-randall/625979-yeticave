@@ -47,7 +47,7 @@ if ($is_auth) {
     if (!empty($lot['lot-date'])) {
       $lot_date = $lot['lot-date'];
 
-      if (check_date_format($lot_date) == false) {
+      if (check_date_format($lot_date) === false) {
         $errors['lot-date'] = 'Укажите дату в формате ДД.ММ.ГГГГ';
       } else {
         $timestamp = strtotime($lot_date);
