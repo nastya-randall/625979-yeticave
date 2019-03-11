@@ -89,11 +89,12 @@ if ($is_auth) {
         // при отсутствии ошибок перемещаем картинку
 
     else {
-      move_uploaded_file($tmp_name, 'img/lots/' . $image_path);
-
-      // записываем данные из формы в БД
-
-      $sql_add_lot = 'INSERT INTO lots (
+      $is_uploaded = move_uploaded_file($tmp_name, 'img/lots/' . $image_path);
+      if (!is_uploaded) {
+        $errors['image'] = 'Произошла ошибка загрузки файла';
+      } else {
+        // записываем данные из формы в БД
+        $sql_add_lot = 'INSERT INTO lots (
         dt_add,
         category_id,
         user_id,
@@ -106,17 +107,18 @@ if ($is_auth) {
       )
       VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?);';
 
-      $stmt = db_get_prepare_stmt($con, $sql_add_lot, [
-        $lot['category'],
-        $user_id,
-        $lot['lot-name'],
-        $lot['message'],
-        '/img/lots/' . $image_path,
-        $lot['lot-rate'],
-        $lot['lot-date'],
-        $lot['lot-step']
-      ]);
-      $res = mysqli_stmt_execute($stmt);
+        $stmt = db_get_prepare_stmt($con, $sql_add_lot, [
+          $lot['category'],
+          $user_id,
+          $lot['lot-name'],
+          $lot['message'],
+          '/img/lots/' . $image_path,
+          $lot['lot-rate'],
+          $lot['lot-date'],
+          $lot['lot-step']
+        ]);
+        $res = mysqli_stmt_execute($stmt);
+      }
 
       // если запись данных прошла успешно, то мы переадресовываем пользователя
 

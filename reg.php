@@ -40,7 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if (empty($errors)) {
     if (!empty($_FILES['image']['name'])) {
-      move_uploaded_file($tmp_name, 'img/avatars/' . $image_path);
+      $is_uploaded = move_uploaded_file($tmp_name, 'img/avatars/' . $image_path);
+    }
+    if (!$is_uploaded) {
+      $errors['image'] = 'Произошла ошибка загрузки файла';
     }
     $email = mysqli_real_escape_string($con, $form['email']);
     $sql = "SELECT id FROM users WHERE email = '$email'";
