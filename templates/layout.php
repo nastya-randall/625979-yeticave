@@ -31,7 +31,7 @@
 
             <?php if ($is_auth): ?>
             <div class="user-menu__logged">
-              <p><?=htmlspecialchars($user_name;)?></p>
+              <p><?=htmlspecialchars($user_name);?></p>
               <a href="logout.php">Выйти</a>
             </div>
             <?php else: ?>
