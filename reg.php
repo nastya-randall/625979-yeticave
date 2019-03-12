@@ -45,40 +45,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$is_uploaded) {
       $errors['image'] = 'Произошла ошибка загрузки файла';
     }
-    $email = mysqli_real_escape_string($con, $form['email']);
-    $sql = "SELECT id FROM users WHERE email = '$email'";
-    $res = mysqli_query($con, $sql);
-
-    if (mysqli_num_rows($res) > 0) {
-      $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
-    }
     else {
-      $password = password_hash($form['password'], PASSWORD_DEFAULT);
+      $email = mysqli_real_escape_string($con, $form['email']);
+      $sql = "SELECT id FROM users WHERE email = '$email'";
+      $res = mysqli_query($con, $sql);
 
-      $sql = 'INSERT INTO users (
-        dt_add,
-        email,
-        name,
-        password,
-        contact,
-        avatar_path
-        )
-        VALUES (NOW(), ?, ?, ?, ?, ?)';
+      if (mysqli_num_rows($res) > 0) {
+        $errors['email'] = 'Пользователь с этим email уже зарегистрирован';
+      }
+      else {
+        $password = password_hash($form['password'], PASSWORD_DEFAULT);
 
-      $stmt = db_get_prepare_stmt($con, $sql, [
-        $form['email'],
-        $form['name'],
-        $password,
-        $form['message'],
-        '/img/avatars/' . $image_path
-      ]);
+        $sql = 'INSERT INTO users (
+          dt_add,
+          email,
+          name,
+          password,
+          contact,
+          avatar_path
+          )
+          VALUES (NOW(), ?, ?, ?, ?, ?)';
 
-      $res = mysqli_stmt_execute($stmt);
-    }
+        $stmt = db_get_prepare_stmt($con, $sql, [
+          $form['email'],
+          $form['name'],
+          $password,
+          $form['message'],
+          '/img/avatars/' . $image_path
+        ]);
 
-    if ($res && empty($errors)) {
-      header("Location: login.php");
-      exit();
+        $res = mysqli_stmt_execute($stmt);
+      }
+
+      if ($res && empty($errors)) {
+        header("Location: login.php");
+        exit();
+      }
     }
 
   }
