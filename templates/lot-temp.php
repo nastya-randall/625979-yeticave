@@ -8,14 +8,14 @@
   </ul>
 </nav>
 <section class="lot-item container">
-  <h2><?=$lot['name'];?></h2>
+  <h2><?=htmlspecialchars($lot['name']);?></h2>
   <div class="lot-item__content">
     <div class="lot-item__left">
       <div class="lot-item__image">
         <img src="<?=$lot['image_path']; ?>" width="730" height="548" alt="Сноуборд">
       </div>
       <p class="lot-item__category">Категория: <span><?=$lot['cat_name'];?></span></p>
-      <p class="lot-item__description"><?=$lot['description'];?></p>
+      <p class="lot-item__description"><?=htmlspecialchars($lot['description']);?></p>
     </div>
 
     <div class="lot-item__right">
@@ -53,7 +53,7 @@
           <?php if (count($bids) !== 0): ?>
             <?php foreach ($bids as $bid): ?>
             <tr class="history__item">
-              <td class="history__name"><?=$bid['name'];?></td>
+              <td class="history__name"><?=htmlspecialchars($bid['name']);?></td>
               <td class="history__price"><?=$bid['bid'];?> ₽</td>
               <td class="history__time"><?=$bid['dt_add'];?></td>
             </tr>
