@@ -89,10 +89,8 @@ if ($is_auth) {
         // при отсутствии ошибок перемещаем картинку
 
     else {
-      $is_uploaded = move_uploaded_file($tmp_name, 'img/lots/' . $image_path);
-      if (!is_uploaded) {
-        $errors['image'] = 'Произошла ошибка загрузки файла';
-      } else {
+      move_uploaded_file($tmp_name, 'img/lots/' . $image_path);
+
         // записываем данные из формы в БД
         $sql_add_lot = 'INSERT INTO lots (
         dt_add,
@@ -139,7 +137,7 @@ if ($is_auth) {
         'categories' => $categories,
         'lot' => $lot
       ]);
-    }
+
   }
 
   else {

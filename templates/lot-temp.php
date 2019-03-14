@@ -38,7 +38,7 @@
         <form class="lot-item__form" action="lot.php?id=<?=$lot['id'];?>" method="post">
           <p class="lot-item__form-item form__item <?php if(!empty($errors)): ?>form__item--invalid<?php endif;?>">
             <label for="cost">Ваша ставка</label>
-            <input id="cost" type="text" name="cost" placeholder="<?=$min_bid;?>" value="<?= isset($form['cost']) ? $form['cost'] : ""; ?>">
+            <input id="cost" type="text" name="cost" placeholder="<?=$min_bid;?>" value="<?= isset($form['cost']) ? htmlspecialchars($form['cost']) : ""; ?>">
             <span class="form__error"><?= $errors['cost']; ?></span>
           </p>
           <button type="submit" class="button">Сделать ставку</button>

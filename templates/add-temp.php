@@ -12,7 +12,7 @@
   <div class="form__container-two">
     <div class="form__item <?php if(isset($errors['lot-name'])): ?>form__item--invalid<?php endif;?>"> <!-- form__item--invalid -->
       <label for="lot-name">Наименование</label>
-      <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= isset($lot['lot-name']) ? $lot['lot-name'] : ""; ?>">
+      <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= isset($lot['lot-name']) ? htmlspecialchars($lot['lot-name']) : ""; ?>">
       <span class="form__error">Введите наименование лота</span>
     </div>
 
@@ -23,7 +23,7 @@
       <select id="category" name="category">
         <option>Выберите категорию</option>
       <?php foreach ($categories as $index): ?>
-        <option <?= $value == $index['id'] ? "selected": ""; ?> value="<?=$index['id']; ?>"><?= $index['name']; ?></option>
+        <option <?= $value === $index['id'] ? "selected": ""; ?> value="<?=$index['id']; ?>"><?= $index['name']; ?></option>
       <?php endforeach; ?>
       </select>
       <span class="form__error">Выберите категорию</span>
@@ -32,7 +32,7 @@
 
   <div class="form__item form__item--wide <?php if(isset($errors['message'])): ?>form__item--invalid<?php endif;?>">
     <label for="message">Описание</label>
-    <textarea id="message" name="message" placeholder="Напишите описание лота"><?= isset($lot['message']) ? $lot['message'] : ""; ?></textarea>
+    <textarea id="message" name="message" placeholder="Напишите описание лота"><?= isset($lot['message']) ? htmlspecialchars($lot['message']) : ""; ?></textarea>
     <span class="form__error">Напишите описание лота</span>
   </div>
   <div class="form__item form__item--file <?php if(isset($errors['image'])): ?>form__item--invalid<?php endif;?>"> <!-- form__item--uploaded -->
@@ -54,12 +54,12 @@
   <div class="form__container-three">
     <div class="form__item form__item--small <?php if(isset($errors['lot-rate'])): ?>form__item--invalid<?php endif;?>">
       <label for="lot-rate">Начальная цена</label>
-      <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= isset($lot['lot-rate']) ? $lot['lot-rate'] : ""; ?>">
+      <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= isset($lot['lot-rate']) ? htmlspecialchars($lot['lot-rate']) : ""; ?>">
       <span class="form__error"><?= $errors['lot-rate']; ?></span>
     </div>
     <div class="form__item form__item--small <?php if(isset($errors['lot-step'])): ?>form__item--invalid<?php endif;?>">
       <label for="lot-step">Шаг ставки</label>
-      <input id="lot-step" type="number" name="lot-step" placeholder="0" value="<?= isset($lot['lot-step']) ? $lot['lot-step'] : ""; ?>">
+      <input id="lot-step" type="number" name="lot-step" placeholder="0" value="<?= isset($lot['lot-step']) ? htmlspecialchars($lot['lot-step']) : ""; ?>">
       <span class="form__error"><?= $errors['lot-step']; ?></span>
     </div>
     <div class="form__item <?php if(isset($errors['lot-date'])): ?>form__item--invalid<?php endif;?>">
