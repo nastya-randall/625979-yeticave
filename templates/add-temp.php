@@ -23,7 +23,7 @@
       <select id="category" name="category">
         <option>Выберите категорию</option>
       <?php foreach ($categories as $index): ?>
-        <option <?= $value == $index['id'] ? "selected": ""; ?> value="<?=$index['id']; ?>"><?= $index['name']; ?></option>
+        <option <?= $value === $index['id'] ? "selected": ""; ?> value="<?=$index['id']; ?>"><?= $index['name']; ?></option>
       <?php endforeach; ?>
       </select>
       <span class="form__error">Выберите категорию</span>

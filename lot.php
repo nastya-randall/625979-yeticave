@@ -3,6 +3,8 @@ require_once('functions.php');
 require_once('data.php');
 
 $is_content = false;
+$errors = [];
+$form = [];
 
 if (isset($_GET['id'])) {
   $lot_id = intval($_GET['id']);
@@ -52,7 +54,7 @@ if (isset($_GET['id'])) {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $form = $_POST;
-      $errors = [];
+      
 
       $req_fields = ['cost'];
 
@@ -104,7 +106,8 @@ if (isset($_GET['id'])) {
       'min_bid' => $min_bid,
       'errors' => $errors,
       'form' => $form,
-      'is_visible' => $is_visible
+      'is_visible' => $is_visible,
+      'is_end' => $is_end
     ]);
     $title = $lot['name'];
     $is_content = true;

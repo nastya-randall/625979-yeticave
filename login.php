@@ -2,11 +2,12 @@
 require_once('data.php');
 require_once('functions.php');
 $title = 'Вход';
-
+$form = [];
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $form = $_POST;
-  $errors = [];
+  
 
   $req_fields = ['email', 'password'];
 
@@ -56,7 +57,8 @@ $content = include_template('login-temp.php', [
 $layout = include_template('layout.php', [
   'content' => $content,
   'categories' => $categories,
-  'title' => $title
+  'title' => $title,
+  'is_auth' => $is_auth
 ]);
 
 print($layout);

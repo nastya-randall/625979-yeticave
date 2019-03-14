@@ -2,11 +2,13 @@
 require_once('data.php');
 require_once('functions.php');
 $title = 'Регистрация';
+$errors = [];
+$form = [];
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $form = $_POST;
-  $errors = [];
+  
 
   $req_fields = ['email', 'password', 'name', 'message'];
 
@@ -91,7 +93,8 @@ $content = include_template('reg-temp.php', [
 $layout = include_template('layout.php', [
   'content' => $content,
   'categories' => $categories,
-  'title' => $title
+  'title' => $title,
+  'is_auth' => $is_auth
 ]);
 
 print($layout);
